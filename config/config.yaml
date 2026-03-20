@@ -1,3 +1,6 @@
+# 在此粘贴你的 config.yaml...
+# 或拖拽文件到编辑器区域
+# 或点击右上角"加载官网最新配置"
 # ═══════════════════════════════════════════════════════════════
 #                    TrendRadar 配置文件
 #                      Version: 2.2.0
@@ -77,7 +80,10 @@ platforms:
       name: "抖音"
     - id: "zhihu"
       name: "知乎"
-
+    - id: "sputniknewscn"
+      name: "卫星通讯社"
+    - id: "cankaoxiaoxi"
+      name: "参考消息"
 
 
 # ===============================================================
@@ -151,7 +157,7 @@ rss:
 # - incremental：最少打扰，只看新增
 # ===============================================================
 report:
-  mode: "current"                     # daily | current | incremental（schedule 开启时作为默认值）
+  mode: "daily"                     # daily | current | incremental（schedule 开启时作为默认值）
 
   display_mode: "keyword"             # 分组维度: keyword | platform
                                       # keyword: 按关键词分组显示（默认）
@@ -251,35 +257,20 @@ display:
   #   1. 在此列表中
   #   2. 下方 regions 中对应开关为 true
   region_order:
-    - new_items                           # 1️⃣ 新增热点区域
-    - hotlist                             # 2️⃣ 热榜区域（关键词匹配 / AI 智能筛选）
-    - rss                                 # 3️⃣ RSS 订阅区域
-    - standalone                          # 4️⃣ 独立展示区
-    - ai_analysis                         # 5️⃣ AI 分析区域
-
-  # 推送区域开关
-  # 控制各区域是否启用（配合 region_order 使用）
+    - new_items                       # 1️⃣ 新增热点区域
+    - hotlist                       # 2️⃣ 热榜区域（关键词匹配 / AI 智能筛选）
+    - rss                       # 3️⃣ RSS 订阅区域
+    - standalone                       # 4️⃣ 独立展示区
+    - ai_analysis                       # 5️⃣ AI 分析区域
   regions:
-    hotlist: true                     # 热榜区域（关键词匹配 / AI 智能筛选）
-    new_items: false                   # 新增热点区域（含热榜新增 + RSS 新增）
-                                      # 注：热点词汇统计中的新增标记🆕不受此配置影响
-
-    rss: true                         # RSS 订阅区域
-                                      # 开启后将对 RSS 进行关键词分析并在通知中展示
-                                      # 关闭后跳过分析，但独立展示区不受影响
-
-    standalone: false                 # 独立展示区（完整热榜/RSS，不受关键词过滤）
-    ai_analysis: true                 # AI 分析区域
-
-  # 📋 独立展示区配置
-  # 用途：将指定平台的完整热榜/RSS 数据独立提取，不受关键词过滤影响
-  # 两个独立用途：
-  #   - 推送展示：由 regions.standalone 开关控制，在推送中单独展示完整热榜
-  #   - AI 分析：由 ai_analysis.include_standalone 开关控制，将完整数据送入 AI 做深度分析
-  # 两者共享此处的平台/RSS 配置，但开关互相独立（可只开 AI 分析、不推送展示）
+    new_items: true # 新增热点区域（含热榜新增 + RSS 新增）
+    hotlist: false # 热榜区域（关键词匹配 / AI 智能筛选）
+    rss: true # RSS 订阅区域
+    standalone: false # 独立展示区（完整热榜/RSS，不受关键词过滤）
+    ai_analysis: true # AI 分析区域
   standalone:
-    platforms: ["zhihu", "wallstreetcn-hot"]     # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
-    rss_feeds: []                     # RSS 源 ID 列表（如 ["hacker-news"]）
+    platforms: ["wallstreetcn-hot","douyin","cls-hot","thepaper","bilibili-hot-search","toutiao","baidu","weibo","ifeng","zhihu","tieba","sputniknewscn","cankaoxiaoxi"] # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
+    rss_feeds: ["hacker-news","ruanyifeng","yahoo-finance"] # RSS 源 ID 列表（如 ["hacker-news"]）
     max_items: 20                     # 每个源最多展示条数（0=不限制）
 
 
@@ -367,7 +358,7 @@ storage:
   # 数据格式选项
   formats:
     sqlite: true                      # 主存储（必须启用）
-    txt: false                        # 是否生成 TXT 快照
+    txt: true                        # 是否生成 TXT 快照
     html: true                       # 是否生成 HTML 报告（⚠️ 邮件推送或者需要看网页版报告必须设为 true）
 
   # 本地存储配置
@@ -394,7 +385,7 @@ storage:
   # 数据拉取配置（从远程同步到本地）
   # 用于 MCP Server 等场景：爬虫存到远程，MCP 拉取到本地分析
   pull:
-    enabled: false                    # 是否启用启动时自动拉取
+    enabled: true                    # 是否启用启动时自动拉取
     days: 7                           # 拉取最近 N 天的数据
 
 
